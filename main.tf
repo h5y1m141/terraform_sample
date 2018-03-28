@@ -11,3 +11,7 @@ module "dev-vpc" {
   private_subnet_cidr_blocks = ["10.0.2.0/24", "10.0.3.0/24"]
   private_subnet_availability_zones = ["ap-northeast-1a", "ap-northeast-1c"]
 }
+module "dev-server" {
+  source = "./ec2"
+  private_subnet_id = "${module.dev-vpc.private_subnet_id}"
+}
