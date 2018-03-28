@@ -11,7 +11,15 @@ module "dev-vpc" {
   private_subnet_cidr_blocks = ["10.0.2.0/24", "10.0.3.0/24"]
   private_subnet_availability_zones = ["ap-northeast-1a", "ap-northeast-1c"]
 }
+module "sg" {
+  source = "./sg"
+  vpc_id = "${module.dev-vpc.vpc_id}"
+}
 module "dev-server" {
   source = "./ec2"
+  public_subnet_id = "${module.dev-vpc.public_subnet_id}"
   private_subnet_id = "${module.dev-vpc.private_subnet_id}"
+  key_name = "dev-server-key"
+  public_key_path = "~/.ssh/id_rsa.pub"
+  security_group_ssh = "${module.sg.security_group_ssh}"
 }
