@@ -76,3 +76,8 @@ resource "aws_main_route_table_association" "main-route-table-association" {
   vpc_id         = "${aws_vpc.vpc.id}"
   route_table_id = "${aws_route_table.main-route-table.id}"
 }
+
+# need output value for ec2
+output "private_subnet_id" {
+  value = "${aws_subnet.private-subnet.0.id}"
+}
