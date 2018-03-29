@@ -28,4 +28,6 @@ module "dev-alb" {
   alb_name = "dev-alb"
   security_group_web = "${module.sg.security_group_web}"
   public_subnet_list = ["${module.dev-vpc.public_subnet_list}"]
+  vpc_id = "${module.dev-vpc.vpc_id}"
+  internal_dev_server = "${module.dev-server.internal_dev_server}"
 }

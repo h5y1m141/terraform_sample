@@ -25,3 +25,6 @@ resource "aws_instance" "dev-server2" {
     Name = "dev-server2"
   }
 }
+output "internal_dev_server" {
+  value = "${aws_instance.dev-server2.id}"
+}
