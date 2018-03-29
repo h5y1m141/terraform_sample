@@ -23,3 +23,10 @@ module "dev-server" {
   public_key_path = "~/.ssh/id_rsa.pub"
   security_group_ssh = "${module.sg.security_group_ssh}"
 }
+module "dev-alb" {
+  source = "./alb"
+  alb_name = "dev-alb"
+  security_group_web = "${module.sg.security_group_web}"
+  public_subnet_id = "${module.dev-vpc.public_subnet_id}"
+  public_subnet_id1 = "${module.dev-vpc.public_subnet_id1}"
+}

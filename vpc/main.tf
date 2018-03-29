@@ -80,6 +80,9 @@ resource "aws_main_route_table_association" "main-route-table-association" {
 output "public_subnet_id" {
   value = "${aws_subnet.public-subnet.0.id}"
 }
+output "public_subnet_id1" {
+  value = "${aws_subnet.public-subnet.1.id}"
+}
 output "private_subnet_id" {
   value = "${aws_subnet.private-subnet.0.id}"
 }
