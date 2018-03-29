@@ -52,21 +52,11 @@ resource "aws_route_table_association" "route-table-association" {
     route_table_id = "${aws_route_table.public-route-table.id}"
 }
 
-# nat gataway
-
-resource "aws_eip" "nat" {
-  vpc = true
-}
-resource "aws_nat_gateway" "ngw" {
-  allocation_id = "${aws_eip.nat.id}"
-  subnet_id = "${aws_subnet.public-subnet.0.id}"
-  depends_on = ["aws_internet_gateway.igw"]
-}
 resource "aws_route_table" "main-route-table" {
   vpc_id = "${aws_vpc.vpc.id}"
   route {
     cidr_block = "0.0.0.0/0"
-    nat_gateway_id = "${aws_nat_gateway.ngw.id}"    
+    gateway_id = "${aws_internet_gateway.igw.id}"
   }
   tags {
     Name = "${var.vpc_name}-main-route-table"
