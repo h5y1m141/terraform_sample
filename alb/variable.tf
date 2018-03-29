@@ -7,3 +7,9 @@ variable "security_group_web" {
 variable "public_subnet_list" {
   type = "list"
 }
+variable "vpc_id" {
+  description = "select which vpc belongs to"
+}
+variable "internal_dev_server" {
+  description = "target instance"
+}
