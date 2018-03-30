@@ -14,6 +14,7 @@ module "dev-vpc" {
 module "sg" {
   source = "./sg"
   vpc_id = "${module.dev-vpc.vpc_id}"
+  default_cidr_block = "10.0.0.0/16"
 }
 module "dev-server" {
   source = "./ec2"
@@ -22,6 +23,7 @@ module "dev-server" {
   key_name = "dev-server-key"
   public_key_path = "~/.ssh/id_rsa.pub"
   security_group_ssh = "${module.sg.security_group_ssh}"
+  security_group_web = "${module.sg.security_group_web}"
 }
 module "dev-alb" {
   source = "./alb"

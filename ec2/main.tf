@@ -20,7 +20,7 @@ resource "aws_instance" "dev-server2" {
   subnet_id = "${var.private_subnet_id}"
   key_name      = "${aws_key_pair.auth.id}"
   monitoring = false
-
+  vpc_security_group_ids = ["${var.security_group_web}"]
   tags {
     Name = "dev-server2"
   }
