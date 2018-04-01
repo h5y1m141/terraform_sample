@@ -2,7 +2,6 @@ resource "aws_key_pair" "auth" {
   key_name   = "${var.key_name}"
   public_key = "${file(var.public_key_path)}"
 }
-
 resource "aws_instance" "dev-server1" {
   ami = "ami-da9e2cbc"
   instance_type = "t2.micro"
@@ -23,6 +22,13 @@ resource "aws_instance" "dev-server2" {
   vpc_security_group_ids = ["${var.security_group_web}"]
   tags {
     Name = "dev-server2"
+  }
+}
+resource "aws_network_interface" "nat" {
+  subnet_id = "${var.public_subnet_id}"
+  attachment {
+    instance     = "${aws_instance.dev-server1.id}"
+    device_index = 1
   }
 }
 output "internal_dev_server" {

@@ -10,6 +10,7 @@ module "dev-vpc" {
   public_subnet_availability_zones = ["ap-northeast-1a", "ap-northeast-1c"]
   private_subnet_cidr_blocks = ["10.0.2.0/24", "10.0.3.0/24"]
   private_subnet_availability_zones = ["ap-northeast-1a", "ap-northeast-1c"]
+  nat_instance_id = "${module.dev-server.internal_dev_server}"
 }
 module "sg" {
   source = "./sg"

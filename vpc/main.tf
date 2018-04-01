@@ -52,19 +52,19 @@ resource "aws_route_table_association" "route-table-association" {
     route_table_id = "${aws_route_table.public-route-table.id}"
 }
 
-resource "aws_route_table" "main-route-table" {
+resource "aws_route_table" "private-route-table" {
   vpc_id = "${aws_vpc.vpc.id}"
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.igw.id}"
+    instance_id = "${var.nat_instance_id}"
   }
   tags {
-    Name = "${var.vpc_name}-main-route-table"
+    Name = "${var.vpc_name}-private-route-table"
   }
 }
-resource "aws_main_route_table_association" "main-route-table-association" {
+resource "aws_main_route_table_association" "private-route-table-association" {
   vpc_id         = "${aws_vpc.vpc.id}"
-  route_table_id = "${aws_route_table.main-route-table.id}"
+  route_table_id = "${aws_route_table.private-route-table.id}"
 }
 
 output "public_subnet_id" {
