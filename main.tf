@@ -22,6 +22,7 @@ module "dev-server" {
   key_name = "dev-server-key"
   public_key_path = "~/.ssh/id_rsa.pub"
   security_group_ssh = "${module.sg.security_group_ssh}"
+  security_group_web = "${module.sg.security_group_web}"
 }
 module "dev-alb" {
   source = "./alb"

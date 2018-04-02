@@ -19,6 +19,7 @@ resource "aws_instance" "dev-server2" {
   instance_type = "t2.micro"
   subnet_id = "${var.private_subnet_id}"
   key_name      = "${aws_key_pair.auth.id}"
+  vpc_security_group_ids = ["${var.security_group_web}"]
   monitoring = false
 
   tags {

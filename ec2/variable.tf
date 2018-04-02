@@ -19,3 +19,6 @@ DESCRIPTION
 variable "security_group_ssh" {
   description = "select security group ssh"
 }
+variable "security_group_web" {
+  description = "select security group web server"
+}
