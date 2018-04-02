@@ -46,6 +46,16 @@ resource "aws_route_table" "public-route-table" {
     Name = "${var.vpc_name}-public-route-table"
   }
 }
+# nat gataway
+
+resource "aws_eip" "nat" {
+  vpc = true
+}
+resource "aws_nat_gateway" "ngw" {
+  allocation_id = "${aws_eip.nat.id}"
+  subnet_id = "${aws_subnet.public-subnet.0.id}"
+  depends_on = ["aws_internet_gateway.igw"]
+}
 resource "aws_route_table_association" "route-table-association" {
     count          = "${length(var.public_subnet_cidr_blocks)}"
     subnet_id      = "${element(aws_subnet.public-subnet.*.id, count.index)}"
@@ -56,7 +66,7 @@ resource "aws_route_table" "main-route-table" {
   vpc_id = "${aws_vpc.vpc.id}"
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.igw.id}"
+    nat_gateway_id = "${aws_nat_gateway.ngw.id}"
   }
   tags {
     Name = "${var.vpc_name}-main-route-table"
